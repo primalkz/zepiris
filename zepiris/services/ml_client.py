@@ -154,7 +154,9 @@ class MLInferenceClient:
         Returns:
             dict: Health status response
         """
-        return self._get_json("/healthz")
+        response = self.client.get("/healthz")
+        response.raise_for_status()
+        return response.json()
 
     def close(self) -> None:
         """Close the underlying HTTP client."""
